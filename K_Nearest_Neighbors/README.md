@@ -65,12 +65,12 @@ This is the **bias-variance trade-off in action.**
 
 ---
 
-### 4. Key Takeaways & Technologies
+### 4. Key Takeaways
 
 * **Statistical:** Proved that validation set size is critical for reliable model selection and demonstrated how the optimal `K` in K-NN is a tool to manage the bias-variance trade-off, especially in the presence of noise.
 * **Technical:** Demonstrated efficient, high-performance, vectorized programming in Python.
 
-**Technologies Used:**
+**Used:**
 * Python
 * NumPy
 * Matplotlib
