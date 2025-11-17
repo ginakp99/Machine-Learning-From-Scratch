@@ -13,21 +13,37 @@ To make the algorithm efficient, I did not use `for` loops. The core logic is fu
 
 ### 2. Analysis 1: Impact of Validation Set Size (Task #1)
 
-The goal was to test how the *size* of the validation set (`n`) affects the reliability of our error estimate.
+This experiment was designed to answer two key questions.
 
-#### Finding:
-As `n` increases, the variance of the error estimate drops significantly. A small `n=10` gives chaotic, unreliable results, while `n=80` gives a stable, trustworthy estimate.
+#### Q1: What are the fluctuations of the validation error as a function of *n*?
 
-#### Evidence:
-This is clearly visible when comparing the 5 validation folds for `n=10` vs. `n=80`. The `n=80` lines are tightly clustered, while the `n=10` lines are far apart.
+**Answer:** The fluctuations (variance) of the validation error **decrease significantly** as the size of the validation set (`n`) **increases**.
+
+* **Evidence:**
+    * The plot for `n=10` shows 5 chaotic lines that are far apart. This indicates the error estimate is unstable and has **high variance**.
+    * The plot for `n=80` shows 5 tightly clustered lines that follow the same trend. This indicates the error estimate is stable and has **low variance**.
+    * The final "Variance Plot" confirms this, showing the `n=10` line has the highest variance, and the `n=80` line has the lowest.
+
+* **Conclusion:** A small validation set gives an unreliable error estimate. A larger validation set is required to get a trustworthy result.
 
 | Validation Error (n=10) | Validation Error (n=80) |
 | :---: | :---: |
 | <img src="validation_error_n_10.png" width="400"> | <img src="validation_error_n_80.png" width="400"> |
 
-This is confirmed by the final **Variance Plot**, which shows the `n=10` line (blue) has dramatically higher variance than the `n=80` line (red).
-
 ![Variance Plot](error_variance_vs_n.png)
+
+#### Q2: What is the prediction accuracy of K-NN as a function of *K*?
+
+**Answer:** The prediction accuracy as a function of `K` perfectly illustrates the **bias-variance trade-off**. (Note: The plots show *error rate*, so lower is better accuracy).
+
+* **Small `K` (e.g., K=1-5): High Variance / Overfitting**
+    The error is unstable and sensitive to noise. The model is too "spiky" and is fitting to the noise in the training data.
+
+* **Large `K` (e.g., K > 25): High Bias / Underfitting**
+    The error rate consistently *increases* as `K` gets larger. The model becomes too "simple" and "oversmooths" the decision boundary, losing the local patterns.
+
+* **Optimal `K` (e.s., K ≈ 5-15): The "Sweet Spot"**
+    The best accuracy (lowest error) is in the middle. This "sweet spot" balances the trade-off, creating a model that is complex enough to capture the data's pattern but not so complex that it overfits the noise.
 
 ---
 
