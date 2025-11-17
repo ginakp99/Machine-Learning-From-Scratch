@@ -46,14 +46,14 @@ Second, I engineered a new feature by taking the **square root of the age (`sqrt
 **Conclusion:**
 **Model 2 is the clear winner.** By applying a simple `sqrt(x)` feature transformation, the model's $R^2$ (explanatory power) on the log-transformed data increased from 73.1% to 78.6%. More importantly, its Mean Squared Error (MSE) on the *original* data was significantly lower, proving it makes more accurate real-world predictions.
 
-### 6. Key Takeaways & Technologies
+### 6. Key Takeaways
 
 * **Statistical:** Demonstrated how to fit a non-linear model by transforming the target variable (log-transform).
 * **Feature Engineering:** Proved that engineering a new feature (`sqrt(x)`) can significantly improve model performance over a basic linear feature (`x`).
 * **Model Comparison:** Used $R^2$ and MSE to scientifically compare two models and select the best one.
 * **Implementation:** Implemented the core linear regression algorithm using NumPy and the Normal Equation.
 
-**Technologies Used:**
+**Used:**
 * Python
 * NumPy
 * Matplotlib
