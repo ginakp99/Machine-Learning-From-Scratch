@@ -1,73 +1,74 @@
 # K-Nearest Neighbors (K-NN) from Scratch
 
-> This project is a from-scratch implementation of the K-NN algorithm in Python. The goal was not just to build the classifier, but to analyze its performance and stability, specifically investigating the impact of validation set size and data corruption.
+> **Project Summary:** This is a from-scratch implementation of the K-NN algorithm in Python. The project goes beyond just building the classifier to scientifically analyze its performance. It uses the MNIST dataset to:
+> 1.  Prove the importance of **validation set size** for a stable model.
+> 2.  Test the model's **robustness** and the impact of the **bias-variance trade-off** on noisy data.
 
 ### 1. Core Technical Implementation
 
-To make the algorithm efficient, I did not use `for` loops. The core logic is fully vectorized using NumPy:
+To ensure high performance, the entire algorithm was implemented without `for` loops, relying on vectorized NumPy operations.
 
-* **Vectorized Distance Matrix:** I calculated the entire `(m x n)` squared Euclidean distance matrix in one operation using the formula $D^2 = x^T x - 2x^T z + z^T z$ and NumPy broadcasting.
-* **Vectorized Predictions:** I found the predictions for *all K values* (from 1 to 50) at once by using `np.argsort` to get the sorted neighbor indices, and then `np.cumsum` on the `{-1, 1}` labels to perform the "voting" efficiently.
+* **Vectorized Distance Matrix:** The `(m x n)` squared Euclidean distance matrix ($D^2 = x^T x - 2x^T z + z^T z$) was calculated in a single operation using NumPy's broadcasting.
+* **Vectorized Predictions:** All K-value predictions (for K=1 to 50) were computed at once using `np.argsort` to get neighbor indices, and `np.cumsum` on `{-1, 1}` labels to perform the "majority vote" efficiently.
 
 ---
 
-### 2. Analysis 1: Impact of Validation Set Size (Task #1)
+### 2. Analysis 1: The Importance of Validation Set Size (Task #1)
 
-This experiment was designed to answer two key questions.
+This experiment tested how the *size* of the validation set (`n`) affects the reliability of the error estimate.
 
-#### Q1: What are the fluctuations of the validation error as a function of *n*?
+#### Finding:
+As the validation set size (`n`) increases, the variance of the error estimate drops significantly. A small `n=10` gives chaotic, unreliable results, while `n=80` gives a stable, trustworthy estimate.
 
-**Answer:** The fluctuations (variance) of the validation error **decrease significantly** as the size of the validation set (`n`) **increases**.
-
-* **Evidence:**
-    * The plot for `n=10` shows 5 chaotic lines that are far apart. This indicates the error estimate is unstable and has **high variance**.
-    * The plot for `n=80` shows 5 tightly clustered lines that follow the same trend. This indicates the error estimate is stable and has **low variance**.
-    * The final "Variance Plot" confirms this, showing the `n=10` line has the highest variance, and the `n=80` line has the lowest.
-
-* **Conclusion:** A small validation set gives an unreliable error estimate. A larger validation set is required to get a trustworthy result.
+#### Evidence:
+This is clearly visible when comparing the 5 validation folds for `n=10` vs. `n=80`. The `n=80` plot shows the 5 folds (the thin lines) are tightly clustered around the mean. The `n=10` plot shows they are far apart.
 
 | Validation Error (n=10) | Validation Error (n=80) |
 | :---: | :---: |
 | <img src="validation_error_n_10.png" width="400"> | <img src="validation_error_n_80.png" width="400"> |
 
+The final "Variance Plot" confirms this. The **blue line (`n=10`)** is dramatically higher and spikier, proving it has the most variance, while the **red line (`n=80`)** is the lowest and flattest.
+
 ![Variance Plot](error_variance_vs_n.png)
-
-#### Q2: What is the prediction accuracy of K-NN as a function of *K*?
-
-**Answer:** The prediction accuracy as a function of `K` perfectly illustrates the **bias-variance trade-off**. (Note: The plots show *error rate*, so lower is better accuracy).
-
-* **Small `K` (e.g., K=1-5): High Variance / Overfitting**
-    The error is unstable and sensitive to noise. The model is too "spiky" and is fitting to the noise in the training data.
-
-* **Large `K` (e.g., K > 25): High Bias / Underfitting**
-    The error rate consistently *increases* as `K` gets larger. The model becomes too "simple" and "oversmooths" the decision boundary, losing the local patterns.
-
-* **Optimal `K` (e.s., K ≈ 5-15): The "Sweet Spot"**
-    The best accuracy (lowest error) is in the middle. This "sweet spot" balances the trade-off, creating a model that is complex enough to capture the data's pattern but not so complex that it overfits the noise.
 
 ---
 
-### 3. Analysis 2: Impact of Data Corruption (Task #2)
+### 3. Analysis 2: Model Robustness to Data Corruption (Task #2)
 
-*(This is the optional task. I highly recommend you do it and add it. It's what makes this a complete project.)*
+This experiment tested how the model's performance and optimal `K` are affected by noisy, corrupted data.
 
-I then tested how data corruption (noise) affects model accuracy and the optimal `K`.
+#### Finding 1: As noise increases, accuracy drops significantly.
+The model's best possible performance (the minimum mean error) gets progressively worse as the data becomes noisier.
 
-#### Finding:
-1.  As data corruption increases, the overall accuracy (minimum error) gets worse.
-2.  As corruption increases, the "optimal K" (the best number of neighbors) also **increases**.
+| Dataset | Best Mean Error | Optimal K |
+| :--- | :---: | :---: |
+| **Uncorrupted** | 0.0700 | 5 |
+| **Light-Corruption** | 0.0950 | 1 |
+| **Moderate-Corruption**| 0.2450 | 3 |
+| **Heavy-Corruption** | 0.3275 | 7 |
 
-#### Evidence:
-This is because the model needs to average over more neighbors to "smooth out" and "cancel" the random noise.
+#### Finding 2: The Optimal K shifts to compensate for noise.
+The data shows that the best `K` for a "clean" dataset (K=5) is *not* the best `K` for a "noisy" one (K=7 for heavy corruption).
 
-*(Here you would add your plots for `Uncorrupted` vs. `Heavy-Corruption`)*
+This is the **bias-variance trade-off in action.**
+* A noisy dataset requires a **larger K** to "smooth out" the noise.
+* If `K` is too small (like `K=1`) on noisy data, the model will **overfit** to the random noise (high variance).
+* By increasing `K`, the model averages over more neighbors, and the "noisy" votes get canceled out. This is why the `Heavy-Corruption` model performs best at `K=7`, finding a new "sweet spot" that balances bias and variance.
+
+#### Evidence (All 4 Plots):
+
+| Uncorrupted (K=5 is optimal) | Light-Corruption (K=1 is optimal) |
+| :---: | :---: |
+| <img src="validation_error_Uncorrupted.png" width="400"> | <img src="validation_error_Light-Corruption.png" width="400"> |
+| **Moderate-Corruption (K=3 is optimal)** | **Heavy-Corruption (K=7 is optimal)** |
+| <img src="validation_error_Moderate-Corruption.png" width="400"> | <img src="validation_error_Heavy-Corruption.png" width="400"> |
 
 ---
 
 ### 4. Key Takeaways & Technologies
 
-* **Statistical:** Showed the bias-variance trade-off (small `K` = high variance, large `K` = high bias) and proved that validation set size is critical for reliable model selection.
-* **Technical:** Demonstrated efficient, vectorized programming in Python.
+* **Statistical:** Proved that validation set size is critical for reliable model selection and demonstrated how the optimal `K` in K-NN is a tool to manage the bias-variance trade-off, especially in the presence of noise.
+* **Technical:** Demonstrated efficient, high-performance, vectorized programming in Python.
 
 **Technologies Used:**
 * Python
