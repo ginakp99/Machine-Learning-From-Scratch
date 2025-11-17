@@ -23,11 +23,11 @@ This is clearly visible when comparing the 5 validation folds for `n=10` vs. `n=
 
 | Validation Error (n=10) | Validation Error (n=80) |
 | :---: | :---: |
-| <img src="../validation_error_n_10.png" width="400"> | <img src="../validation_error_n_80.png" width="400"> |
+| <img src="validation_error_n_10.png" width="400"> | <img src="validation_error_n_80.png" width="400"> |
 
 This is confirmed by the final **Variance Plot**, which shows the `n=10` line (blue) has dramatically higher variance than the `n=80` line (red).
 
-![Variance Plot](../error_variance_vs_n.png)
+![Variance Plot](error_variance_vs_n.png)
 
 ---
 
