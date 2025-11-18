@@ -34,7 +34,7 @@ The model was trained for 10 epochs using the **Adam** optimizer (`lr=0.001`) an
 
 ![Training Loss Curve](Training%20Loss%20over%20Epochs.png)
 
-### 4. Technologies Used
+### 4. Used
 * **Deep Learning:** PyTorch, Torchvision (Autograd, CNNs).
 * **Data Engineering:** Custom `DataLoader` and transformation pipelines.
 * **Visualization:** Matplotlib for loss tracking.
