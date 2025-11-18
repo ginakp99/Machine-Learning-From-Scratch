@@ -32,7 +32,7 @@ The model was trained for 10 epochs using the **Adam** optimizer (`lr=0.001`) an
 * **Training Stability:** The loss converged smoothly from **1.55** (Epoch 1) to **0.12** (Epoch 10), indicating stable learning without divergence.
 * **Generalization:** The model achieved a final accuracy of **91.96%** on the independent test set (12,630 images).
 
-![Training Loss Curve](training_curve.png)
+![Training Loss Curve](Training%20Loss%20over%20Epochs.png)
 
 ### 4. Technologies Used
 * **Deep Learning:** PyTorch, Torchvision (Autograd, CNNs).
