@@ -34,7 +34,7 @@ I trained and evaluated three progressively complex models to understand the dec
 * **Overfitting in Random Forests:** The Random Forest achieved a **0.00% training error**, meaning it perfectly memorized the training data. However, it had the highest test error (11.1%), proving it was "trying too hard" to fit noise rather than the underlying signal.
 * **Optimal Neighbors ($k$):** The cross-validation process identified **$k=20$** as optimal. A larger $k$ helps smooth out decision boundaries, which is beneficial in noisy medical data.
 
-### 4. Technologies & Skills Demonstrated
+### 4. Used
 
 * **Libraries:** `scikit-learn`, `pandas`, `numpy`
 * **Techniques:** Cross-Validation, Hyperparameter Tuning, Feature Standardization (Scaling), L2 Regularization.
