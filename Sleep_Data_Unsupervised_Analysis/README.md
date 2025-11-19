@@ -27,11 +27,10 @@ The plots show the initial random centers (left) led to a clustering with higher
 
 | K-Means (Random Init) | K-Means++ (Smart Init) |
 | :---: | :---: |
-|  |  |
-
+| <img src="clustering_comparison.png" width="400"> | <img src="clustering_comparison.png" width="400"> |
 ***
 
-### 4. Key Takeaways & Technologies
+### 4. Key Takeaways 
 
 * **Portfolio Completion:** This project adds **Unsupervised Learning** skills, creating a full-stack portfolio (Supervised, Unsupervised, Deep Learning).
 * **Statistical Insight:** Demonstrated the use of PCA to identify data redundancy and justify dimensionality reduction.
