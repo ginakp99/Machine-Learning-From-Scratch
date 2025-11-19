@@ -22,7 +22,7 @@ An initial XGBoost model was trained (`n_estimators=500`, `learning_rate=0.1`, `
 
 The plot below shows the training and validation error curves. The **Validation RMSE** (orange line) flattens out around the 100-200 iteration mark, indicating **optimal convergence** without significant overfitting.
 
-![Q2: Fixed XGBoost Performance Monitoring Plot](xgb_validation_monitoring.png)
+![Q2: Fixed XGBoost Performance Monitoring Plot](Fixed XGBoost Performance Monitoring.png)
 
 #### B. Hyperparameter Grid Search (Optimization)
 
