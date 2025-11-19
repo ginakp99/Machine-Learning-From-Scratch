@@ -59,7 +59,7 @@ This suggests that for this specific dataset:
 
 ---
 
-### Technologies Used
+### Used
 
 * **Python:** Core language for scripting.
 * **XGBoost:** Primary model implementation.
