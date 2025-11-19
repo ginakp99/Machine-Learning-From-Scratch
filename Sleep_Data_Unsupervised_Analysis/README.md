@@ -1,33 +1,29 @@
 # Unsupervised Analysis: PCA & Clustering on Sleep Patterns
 
-> **Project Summary:** A final exploratory analysis of the high-dimensional Sleep-EDF dataset using **PCA** (Principal Component Analysis) and **K-Means Clustering**. This project showcases the ability to reduce feature dimensionality, visualize complex data, and critically evaluate algorithm stability.
-
-***
+> **Project Summary:** An exploratory analysis of the Sleep-EDF dataset using Unsupervised Learning. I applied **Principal Component Analysis (PCA)** to reduce feature dimensionality and used **K-Means Clustering** to discover latent structures in the data without using labels.
 
 ### 1. Dimensionality Reduction (PCA)
+The goal was to analyze the variance structure of the 16-feature EEG dataset. Following standard practice (zero mean/unit variance scaling), I performed PCA to transform the data to new axes that maximize variance.
 
-I performed PCA on the 16-feature training data to understand the structure and redundancy of the EEG signals. The goal was to transform the data to a new set of orthogonal axes that maximize variance.
+* **90% Variance Threshold:** The analysis showed that only **5 components** are necessary to explain $\mathbf{90\%}$ of the total variance in the original 16-dimensional dataset. This suggests the data can be compressed significantly.
+* **Visualization:** Projecting the data onto the first two Principal Components (PC1 and PC2) reveals the data's true shape and overlap between sleep stages, showing why the supervised classification task was difficult.
 
-* **90% Variance Threshold:** The analysis showed that only **5 components** are necessary to explain $\mathbf{90\%}$ of the total variance in the 16-dimensional dataset. This confirms the data has significant redundancy, justifying feature reduction.
-
-![PCA Eigenspectrum](pca_eigenspectrum.png)
-
-* **2D Projection:** The scatter plot of PC1 vs PC2 shows that the data is not easily separable, even though the points are colored by their true sleep stage (0-4). This visualizes the challenge faced by the supervised models in my previous project.
+![PCA Projection](pca_projection.png)
 
 ### 2. Clustering Analysis (K-Means Stability)
 
-I performed 5-means clustering (as there are 5 known sleep stages) and compared two initialization strategies to analyze the algorithm's stability.
+I performed 5-means clustering and compared two initialization strategies to critically evaluate the algorithm's stability and final cost.
 
-#### Key Finding: Initialization Matters
-The experiment demonstrates the critical nature of initialization in K-Means. K-Means++ found a significantly better solution than the standard Random Initialization.
+#### Key Finding: K-Means++ is Superior
+The experiment demonstrates the practical advantage of the **K-Means++** initialization method in avoiding local minima, leading to a much better clustering quality (lower cost).
 
-| Initialization Method | Final Inertia (Cost) | Interpretation |
+| Initialization Method | Final Inertia (Cost) | Result |
 | :--- | :--- | :--- |
-| **Standard K-Means (Random)** | 166,129.21 | **Sub-optimal.** The algorithm got stuck in a local minimum, resulting in a higher cost. |
-| **K-Means++ (Smart Init)** | **157,343.52** | **Optimal.** The smart seeding avoided local minima and achieved a lower, more reliable cost. |
+| **Standard K-Means (Random Init)** | 166,129.21 | **Sub-optimal.** The algorithm got stuck in a local minimum, resulting in a higher cost. |
+| **K-Means++ (Smart Init)** | **157,343.52** | **Optimal.** Achieved an 5.3% reduction in cost, proving K-Means++ provides a more stable, global minimum solution. |
 
 #### Visual Evidence
-The overlay plots show that K-Means++ (right plot) achieved a cleaner distribution of centroids that better reflects the natural groupings of the data compared to the random centers (left plot).
+The plots show the initial random centers (left) led to a clustering with higher cost, while the K-Means++ centers (right) found a better solution, reflected in the lower **Inertia** (157,343).
 
 | K-Means (Random Init) | K-Means++ (Smart Init) |
 | :---: | :---: |
@@ -37,9 +33,9 @@ The overlay plots show that K-Means++ (right plot) achieved a cleaner distributi
 
 ### 4. Key Takeaways & Technologies
 
-* **Full-Stack Analysis:** This project completes the portfolio by demonstrating proficiency in **Unsupervised Learning** methods (PCA and Clustering).
-* **Statistical Insight:** Used the Eigenspectrum to justify data dimensionality reduction, showing an understanding of variance and information preservation.
-* **Algorithm Optimization:** Proved the practical advantage of using **K-Means++** to ensure stability and reliable convergence in iterative models.
+* **Portfolio Completion:** This project adds **Unsupervised Learning** skills, creating a full-stack portfolio (Supervised, Unsupervised, Deep Learning).
+* **Statistical Insight:** Demonstrated the use of PCA to identify data redundancy and justify dimensionality reduction.
+* **Algorithm Optimization:** Proved the practical value of **K-Means++** for ensuring stability and finding reliable cluster structures.
 
 | Tech Stack | Analytical Skills |
 | :--- | :--- |
