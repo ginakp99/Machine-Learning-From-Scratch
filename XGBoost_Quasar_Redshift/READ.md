@@ -20,9 +20,9 @@ The analysis included fixed-parameter training for baseline evaluation, followed
 
 An initial XGBoost model was trained (`n_estimators=500`, `learning_rate=0.1`, `max_depth=4`). A 10% hold-out validation set was used to monitor the training error vs. the unseen validation error.
 
-The plot below shows the training and validation error curves. The validation RMSE flattens out around the 100-200 iteration mark, indicating optimal convergence and appropriate `n_estimators`.
+The plot below shows the training and validation error curves. The **Validation RMSE** (orange line) flattens out around the 100-200 iteration mark, indicating **optimal convergence** without significant overfitting.
 
-****
+![Q2: Fixed XGBoost Performance Monitoring Plot](image_9386e9.png)
 
 #### B. Hyperparameter Grid Search (Optimization)
 
@@ -59,7 +59,7 @@ This suggests that for this specific dataset:
 
 ---
 
-### Used
+###  Used
 
 * **Python:** Core language for scripting.
 * **XGBoost:** Primary model implementation.
